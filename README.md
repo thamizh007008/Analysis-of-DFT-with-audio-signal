@@ -9,8 +9,10 @@
    PC installed with SCILAB/Python. 
 
 # PROGRAM: 
-
-// analyze audio signal
+```
+# ==============================
+# AUDIO DFT ANALYSIS IN COLAB
+# ==============================
 
 # Step 1: Install required packages
 !pip install -q librosa soundfile
@@ -26,7 +28,7 @@ import librosa, librosa.display
 import numpy as np
 import soundfile as sf
 
-y, sr = librosa.load(filename, sr=None, mono=True)  
+y, sr = librosa.load(filename, sr=None, mono=True)  # keep original sample rate
 duration = len(y) / sr
 print(f"Sample rate = {sr} Hz, duration = {duration:.2f} s, samples = {len(y)}")
 
@@ -37,7 +39,7 @@ display(Audio(y, rate=sr))
 # Step 5: Full FFT (DFT) analysis
 import matplotlib.pyplot as plt
 
-n_fft = 2**14   
+n_fft = 2**14   # choose large power of 2 for smoother spectrum
 Y = np.fft.rfft(y, n=n_fft)
 freqs = np.fft.rfftfreq(n_fft, 1/sr)
 magnitude = np.abs(Y)
@@ -80,6 +82,7 @@ plt.colorbar(format="%+2.0f dB")
 plt.title("Spectrogram (dB)")
 plt.ylim(0, sr/2)
 plt.show()
+```
 # AUDIO USED:
 [mixkit-small-crowd-laugh-and-applause-422.wav](https://github.com/user-attachments/files/22463928/mixkit-small-crowd-laugh-and-applause-422.wav)
 
